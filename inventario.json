@@ -1,7 +1,0 @@
-{
-  "P001": {"nombre": "Mouse", "categoria": "Perifericos", "stock": 20},
-  "P002": {"nombre": "Teclado", "categoria": "Perifericos", "stock": 5},
-  "P003": {"nombre": "Monitor", "categoria": "Pantallas", "stock": 3},
-  "P004": {"nombre": "Mouse gamer", "categoria": "Perifericos", "stock": 1},
-  "P005": {"nombre": "Pantalla portatil", "categoria": "Pantallas", "stock": 12}
-}
