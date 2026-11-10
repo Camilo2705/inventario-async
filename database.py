@@ -1,17 +1,21 @@
+import aiofiles
 import json
-from pathlib import Path
 
-ARCHIVO = Path("taller.json")
+ARCHIVO_DB = "taller.json"
 
-
-def leer_ordenes() -> list:
-    if not ARCHIVO.exists():
+async def leer_base_datos():
+    try:
+        async with aiofiles.open(ARCHIVO_DB, mode='r', encoding='utf-8') as f:
+            contenido = await f.read()
+            # Validamos si el archivo está vacío
+            if not contenido.strip():
+                return []
+            return json.loads(contenido)
+    except FileNotFoundError:
         return []
-    with open(ARCHIVO, "r", encoding="utf-8") as f:
-        contenido = f.read().strip()
-        return json.loads(contenido) if contenido else []
+    except json.JSONDecodeError:
+        return []
 
-
-def guardar_ordenes(ordenes: list) -> None:
-    with open(ARCHIVO, "w", encoding="utf-8") as f:
-        json.dump(ordenes, f, ensure_ascii=False, indent=4)
+async def guardar_base_datos(datos):
+    async with aiofiles.open(ARCHIVO_DB, mode='w', encoding='utf-8') as f:
+        await f.write(json.dumps(datos, indent=4))
